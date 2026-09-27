@@ -1,0 +1,8 @@
+# 可选:用 Docker 起 Redis(本机已有 redis-server 时无需使用)
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: trial-flow-redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "no"]

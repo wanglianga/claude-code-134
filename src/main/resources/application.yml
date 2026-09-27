@@ -1,0 +1,28 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: trial-flow-service
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 2s
+
+app:
+  redis:
+    # Redis 不可用时自动降级为进程内锁(便于本地无 Redis 演示),日志会有 WARN 提示
+    required: ${REDIS_REQUIRED:false}
+  business:
+    commission-rate: 0.05        # 顾问提成比例
+    gift-consumed-deducts: false # 退费时已消耗赠课是否按原价扣减(默认赠课无现金价值,不扣)
+    channel-rates:               # 渠道费用比例(非 ASCII 键需用 [] 括号形式才能被 relaxed binding 识别)
+      "[自然到店]": 0.0
+      "[老带新]": 0.05
+      "[大众点评]": 0.10
+      "[抖音]": 0.12
+
+logging:
+  level:
+    com.trialflow: INFO
